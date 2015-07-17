@@ -61,7 +61,7 @@ public class IRCConnection implements IMConnection, JoinListener, InviteListener
 	
 	private Thread botThread;
 	
-	private final Builder<PircBotX> cfg;
+	private final Builder cfg;
 	private volatile PircBotX pircConnection;
 	private final PircListener listener;
 
@@ -74,7 +74,7 @@ public class IRCConnection implements IMConnection, JoinListener, InviteListener
 	
 
 	public IRCConnection(DescriptorImpl descriptor, AuthenticationHolder authentication) {
-		Builder<PircBotX> config = new Configuration.Builder<PircBotX>();
+		Builder config = new Configuration.Builder();
 
 		// TODO: setVerbose is gone in 2.x - or is it default now?
 //	    if (LOGGER.isLoggable(Level.FINEST)) {
@@ -88,7 +88,6 @@ public class IRCConnection implements IMConnection, JoinListener, InviteListener
 		} else {
 			this.groupChats = Collections.emptyList();
 		}
-		
 		config.setServerHostname(descriptor.getHost());
 		config.setServerPort(descriptor.getPort());
 		String password = Util.fixEmpty(this.descriptor.getPassword());
@@ -181,10 +180,10 @@ public class IRCConnection implements IMConnection, JoinListener, InviteListener
 			final CountDownLatch connectLatch = new CountDownLatch(1);
 			
 			
-			ListenerAdapter<PircBotX> connectListener = new ListenerAdapter<PircBotX>() {
+			ListenerAdapter connectListener = new ListenerAdapter() {
 
 				@Override
-				public void onConnect(ConnectEvent<PircBotX> event)
+				public void onConnect(ConnectEvent event)
 						throws Exception {
 					connectLatch.countDown();
 				    
