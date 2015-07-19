@@ -106,7 +106,7 @@ public class PircListener extends ListenerAdapter {
      */
     @Override
 	public void onNotice(NoticeEvent event) {
-        String sourceNick = event.getUser().getNick();
+        String sourceNick = event.getUserHostmask().getNick();
         String notice = event.getMessage();
 		LOGGER.info("Notice from " + sourceNick + ": '" + normalize(notice) + "'");
 	}
